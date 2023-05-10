@@ -34,4 +34,26 @@ class UsersController < ApplicationController
   redirect_to(next_url)
   end
 
+  def update
+
+    # Parameters: {"input_username"=>"aaaabb", "modify_username_id"=>"121"}
+    the_id = params.fetch("modify_username_id")
+
+    matching_users = User.where(:id => the_id)
+
+    the_user = matching_users.at(0)
+
+    input_username = params.fetch("input_username")
+
+    the_user.username = input_username
+
+    the_user.save
+    #render ({ :template => "user_templates/update.html.erb"})
+
+    next_url = "/users/" + the_user.username.to_s
+    redirect_to(next_url)
+
+
+  end
+
 end
