@@ -34,4 +34,23 @@ class PhotosController < ApplicationController
 
   end
 
+  def create
+    #  Parameters: {"query_image"=>"https://cdn.britannica.com/35/238335-050-2CB2EB8A/Lionel-Messi-Argentina-Netherlands-World-Cup-Qatar-2022.jpg", "query_caption"=>"Messi campeon", "query_owner_id"=>"117"}
+
+    input_image = params.fetch("query_image")
+    input_caption = params.fetch("query_caption")
+    input_owner_id = params.fetch("query_owner_id")
+
+    a_new_photo = Photo.new
+    a_new_photo.image = input_image
+    a_new_photo.caption = input_caption
+    a_new_photo.owner_id = input_owner_id
+
+    a_new_photo.save
+
+    #render({:template => "photo_templates/create.html.erb"})
+
+    redirect_to("/photos/" + a_new_photo.id.to_s)
+  end
+
 end
